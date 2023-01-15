@@ -1,7 +1,9 @@
-import PropTypes from 'prop-types';
 import css from './Filter.module.css';
+import { useDispatch } from 'react-redux';
+import { filterContacts } from 'redux/filterSlice';
+export const Filter = () => {
+  const dispatch = useDispatch();
 
-export const Filter = ({ onInputChange }) => {
   return (
     <form className={css.form}>
       <label className={css.label}>
@@ -9,13 +11,12 @@ export const Filter = ({ onInputChange }) => {
         <input
           className={css.input}
           type="text"
-          onChange={e => onInputChange(e.target.value)}
+          onChange={e => {
+            const action = filterContacts(e.target.value);
+            dispatch(action);
+          }}
         />
       </label>
     </form>
   );
-};
-
-Filter.propTypes = {
-  onInputChange: PropTypes.func,
 };
